@@ -1,5 +1,7 @@
 import Navbar from './components/Navbar'
 
+import ScrollReveal from './sections/ScrollReveal'
+
 import Hero from './sections/Hero'
 import Identity from './sections/Identity'
 import Systems from './sections/Systems'
@@ -15,12 +17,30 @@ function App() {
 
       <main>
         <Hero />
-        <Identity />
-        <Systems />
-        <Built />
-        <Stack />
-        <Playground />
-        <Contact />
+
+        <ScrollReveal direction="up">
+          <Identity />
+        </ScrollReveal>
+
+        <ScrollReveal direction="left">
+          <Systems />
+        </ScrollReveal>
+
+        <ScrollReveal direction="up">
+          <Built />
+        </ScrollReveal>
+
+        <ScrollReveal direction="right">
+          <Stack />
+        </ScrollReveal>
+
+        <ScrollReveal direction="up">
+          <Playground />
+        </ScrollReveal>
+
+        <ScrollReveal direction="up">
+          <Contact />
+        </ScrollReveal>
       </main>
     </div>
   )

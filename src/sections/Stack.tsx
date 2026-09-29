@@ -68,13 +68,55 @@ const technologies = [
 ]
 
 function Stack() {
-  const [active, setActive] = useState<string | null>(
-    null,
-  )
+  const [active, setActive] = useState<string | null>(null)
+  const [cursor, setCursor] = useState({
+    x: 50,
+    y: 50,
+  })
 
   const activeTechnology = technologies.find(
     (technology) => technology.name === active,
   )
+
+  const handlePointerMove = (
+    event: React.PointerEvent<HTMLDivElement>,
+  ) => {
+    if (event.pointerType !== 'mouse') return
+
+    const rect = event.currentTarget.getBoundingClientRect()
+
+    setCursor({
+      x: ((event.clientX - rect.left) / rect.width) * 100,
+      y: ((event.clientY - rect.top) / rect.height) * 100,
+    })
+  }
+
+  const getAttraction = (
+    technologyX: string,
+    technologyY: string,
+  ) => {
+    const nodeX = parseFloat(technologyX)
+    const nodeY = parseFloat(technologyY)
+
+    const dx = cursor.x - nodeX
+    const dy = cursor.y - nodeY
+
+    const distance = Math.sqrt(dx * dx + dy * dy)
+
+    if (distance > 35) {
+      return {
+        x: 0,
+        y: 0,
+      }
+    }
+
+    const strength = Math.max(0, 1 - distance / 35)
+
+    return {
+      x: Math.max(-10, Math.min(10, dx * strength * 0.35)),
+      y: Math.max(-10, Math.min(10, dy * strength * 0.35)),
+    }
+  }
 
   return (
     <section id="stack" className="section stack-section">
@@ -102,7 +144,10 @@ function Stack() {
           </p>
         </div>
 
-        <div className="stack-constellation">
+        <div
+          className="stack-constellation"
+          onPointerMove={handlePointerMove}
+        >
           <svg
             className="stack-lines"
             viewBox="0 0 100 100"
@@ -120,10 +165,16 @@ function Stack() {
 
           {technologies.map((technology) => {
             const isActive = active === technology.name
+
             const isRelated =
               activeTechnology?.related.includes(
                 technology.name,
               ) ?? false
+
+            const attraction = getAttraction(
+              technology.x,
+              technology.y,
+            )
 
             return (
               <motion.button
@@ -137,8 +188,20 @@ function Stack() {
                 style={{
                   left: technology.x,
                   top: technology.y,
+                  x: attraction.x,
+                  y: attraction.y,
                 }}
-                whileHover={{ scale: 1.08 }}
+                animate={{
+                  x: attraction.x,
+                  y: attraction.y,
+                  scale: isActive ? 1.08 : 1,
+                }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 180,
+                  damping: 18,
+                  mass: 0.35,
+                }}
                 onMouseEnter={() =>
                   setActive(technology.name)
                 }

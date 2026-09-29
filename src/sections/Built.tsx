@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   BrainCircuit,
   Code2,
@@ -8,7 +8,6 @@ import {
   Network,
   Sparkles,
   Sprout,
-  X,
 } from 'lucide-react'
 
 type Project = {
@@ -169,7 +168,9 @@ function Built() {
             return (
               <motion.article
                 key={project.name}
-                className={`project-item project-${project.accent}`}
+                className={`project-item project-${project.accent} ${
+                  isOpen ? 'project-item-open' : ''
+                }`}
                 initial={{
                   opacity: 0,
                   y: 25,
@@ -186,8 +187,9 @@ function Built() {
                   duration: 0.6,
                   delay: index * 0.04,
                 }}
+                layout
               >
-                <button
+                <motion.button
                   type="button"
                   className="project-trigger"
                   onClick={() =>
@@ -195,52 +197,153 @@ function Built() {
                       isOpen ? null : project.name,
                     )
                   }
+                  whileTap={{
+                    scale: 0.985,
+                  }}
                 >
-                  <div className="project-icon">
+                  <motion.div
+                    className="project-icon"
+                    animate={{
+                      rotate: isOpen ? 8 : 0,
+                      scale: isOpen ? 1.08 : 1,
+                    }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 260,
+                      damping: 18,
+                    }}
+                  >
                     <Icon size={23} strokeWidth={1.5} />
-                  </div>
+                  </motion.div>
 
                   <div className="project-title">
                     <span>{project.category}</span>
-                    <h3>{project.name}</h3>
+
+                    <motion.h3
+                      animate={{
+                        x: isOpen ? 6 : 0,
+                      }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 220,
+                        damping: 20,
+                      }}
+                    >
+                      {project.name}
+                    </motion.h3>
                   </div>
 
-                  <span
+                  <motion.span
                     className={`project-plus ${
                       isOpen ? 'project-plus-open' : ''
                     }`}
+                    animate={{
+                      rotate: isOpen ? 45 : 0,
+                    }}
+                    transition={{
+                      duration: 0.3,
+                      ease: 'easeOut',
+                    }}
                   >
                     +
-                  </span>
-                </button>
+                  </motion.span>
+                </motion.button>
 
-                <div
-                  className={`project-expanded ${
-                    isOpen ? 'project-expanded-open' : ''
-                  }`}
-                >
-                  <div className="project-expanded-inner">
-                    <div>
-                      <p className="project-question">
-                        {project.question}
-                      </p>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      className="project-expanded"
+                      initial={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      animate={{
+                        height: 'auto',
+                        opacity: 1,
+                      }}
+                      exit={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      transition={{
+                        height: {
+                          duration: 0.5,
+                          ease: [0.22, 1, 0.36, 1],
+                        },
+                        opacity: {
+                          duration: 0.25,
+                        },
+                      }}
+                    >
+                      <motion.div
+                        className="project-expanded-inner"
+                        initial={{
+                          y: -18,
+                        }}
+                        animate={{
+                          y: 0,
+                        }}
+                        exit={{
+                          y: -10,
+                        }}
+                        transition={{
+                          duration: 0.45,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                      >
+                        <div>
+                          <p className="project-question">
+                            {project.question}
+                          </p>
 
-                      <p className="project-description">
-                        {project.description}
-                      </p>
-                    </div>
+                          <p className="project-description">
+                            {project.description}
+                          </p>
+                        </div>
 
-                    <div className="project-technologies">
-                      {project.technologies.map(
-                        (technology) => (
-                          <span key={technology}>
-                            {technology}
-                          </span>
-                        ),
-                      )}
-                    </div>
-                  </div>
-                </div>
+                        <motion.div
+                          className="project-technologies"
+                          initial={{
+                            opacity: 0,
+                            y: 10,
+                          }}
+                          animate={{
+                            opacity: 1,
+                            y: 0,
+                          }}
+                          transition={{
+                            delay: 0.15,
+                            duration: 0.35,
+                          }}
+                        >
+                          {project.technologies.map(
+                            (technology, techIndex) => (
+                              <motion.span
+                                key={technology}
+                                initial={{
+                                  opacity: 0,
+                                  y: 8,
+                                }}
+                                animate={{
+                                  opacity: 1,
+                                  y: 0,
+                                }}
+                                transition={{
+                                  delay:
+                                    0.12 +
+                                    techIndex * 0.05,
+                                  duration: 0.3,
+                                }}
+                              >
+                                {technology}
+                              </motion.span>
+                            ),
+                          )}
+                        </motion.div>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.article>
             )
           })}
