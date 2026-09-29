@@ -1,100 +1,98 @@
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Flower2 } from 'lucide-react'
+import { ArrowUpRight, Mail } from 'lucide-react'
 
 function Contact() {
   return (
-    <section id="contact" className="section contact-section">
-      <div className="contact-glow" />
-
+    <section
+      id="contact"
+      className="section contact-section"
+    >
       <div className="contact-flower">
-        <Flower2 size={150} strokeWidth={0.5} />
+        <span />
+        <span />
+        <span />
+        <span />
+        <b />
       </div>
 
       <div className="section-container">
-        <div className="section-label">
-          <span className="section-number">06</span>
-          <span className="section-line" />
-          <span>Signal</span>
-          <i>say hello</i>
+        <div className="section-eyebrow">
+          SAY HELLO
         </div>
 
         <motion.div
           className="contact-heading"
-          initial={{ opacity: 0, y: 45 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 1 }}
+          initial={{
+            opacity: 0,
+            y: 40,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
         >
-          <span>If you're building something interesting</span>
-
           <h2>
-            LET'S
+            Let's build
             <br />
-            <i>BUILD.</i>
+            <i>something.</i>
           </h2>
+
+          <p>
+            Have something interesting in mind?
+            <br />
+            I'd love to hear about it.
+          </p>
         </motion.div>
 
-        <div className="contact-grid">
-          <div className="contact-copy">
-            <p>
-              Open to software engineering opportunities, interesting
-              technical problems and projects worth building.
-            </p>
+        <div className="contact-content">
+          <a
+            className="contact-email"
+            href="mailto:srishtimadan28@gmail.com"
+          >
+            <Mail size={20} strokeWidth={1.5} />
+
+            <span>
+              srishtimadan28@gmail.com
+            </span>
+
+            <ArrowUpRight
+              size={18}
+              strokeWidth={1.5}
+            />
+          </a>
+
+          <div className="contact-socials">
+            <a
+              href="https://www.linkedin.com/in/srishti-srishti-/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="social-badge">in</span>
+              LinkedIn
+              <ArrowUpRight size={16} />
+            </a>
 
             <a
-              href="mailto:srishtimadan28@gmail.com"
-              className="email-link"
-            >
-              <span>srishtimadan28@gmail.com</span>
-              <ArrowUpRight size={18} strokeWidth={1.3} />
-            </a>
-          </div>
-
-          <div className="social-links">
-            <Social
-              label="LinkedIn"
-              href="https://www.linkedin.com/in/srishti-srishti-/"
-            />
-
-            <Social
-              label="GitHub"
               href="https://github.com/Srishti-s28"
-            />
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="social-badge">GH</span>
+              GitHub
+              <ArrowUpRight size={16} />
+            </a>
           </div>
         </div>
 
         <footer className="site-footer">
-          <span>© {new Date().getFullYear()} SRISHTI</span>
-
-          <span>
-            <i />
-            SOFTWARE ENGINEER · LONDON, UK
-          </span>
-
+          <span>SRISHTI</span>
           <span>BUILT WITH CURIOSITY</span>
+          <span>© {new Date().getFullYear()}</span>
         </footer>
       </div>
     </section>
-  )
-}
-
-function Social({
-  label,
-  href,
-}: {
-  label: string
-  href: string
-}) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="social-link"
-    >
-      <span>{label}</span>
-      <ArrowUpRight size={17} strokeWidth={1.3} />
-    </a>
   )
 }
 

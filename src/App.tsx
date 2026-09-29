@@ -1,4 +1,5 @@
 import Navbar from './components/Navbar'
+
 import Hero from './sections/Hero'
 import Identity from './sections/Identity'
 import Systems from './sections/Systems'
@@ -9,11 +10,7 @@ import Contact from './sections/Contact'
 
 function App() {
   return (
-    <div className="persona-app">
-      <div className="ambient ambient-one" />
-      <div className="ambient ambient-two" />
-      <div className="ambient ambient-three" />
-
+    <div className="app">
       <Navbar />
 
       <main>

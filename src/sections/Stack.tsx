@@ -1,183 +1,164 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 
-const skillGroups = [
+const technologies = [
   {
-    label: 'LANGUAGES',
-    number: '01',
-    skills: [
-      'Python',
-      'Java',
-      'JavaScript',
-      'TypeScript',
-      'SQL',
-      'C/C++',
-    ],
+    name: 'Python',
+    category: 'language',
+    x: '46%',
+    y: '20%',
+    related: ['FastAPI', 'AI', 'TensorFlow'],
   },
   {
-    label: 'ENGINEERING',
-    number: '02',
-    skills: [
-      'OOP',
-      'DSA',
-      'REST APIs',
-      'System Design',
-      'Unit Testing',
-      'Integration Testing',
-      'Debugging',
-      'Agile',
-    ],
+    name: 'Java',
+    category: 'language',
+    x: '69%',
+    y: '27%',
+    related: ['Spring Boot', 'OOP'],
   },
   {
-    label: 'FRONTEND / BACKEND',
-    number: '03',
-    skills: [
-      'React',
-      'Spring Boot',
-      'Node.js',
-      'FastAPI',
-      'Vite',
-      'Tailwind CSS',
-      'Responsive Design',
-    ],
+    name: 'React',
+    category: 'frontend',
+    x: '25%',
+    y: '39%',
+    related: ['TypeScript', 'Vite', 'Web'],
   },
   {
-    label: 'AI / MACHINE LEARNING',
-    number: '04',
-    skills: [
-      'LangChain',
-      'FAISS',
-      'RAG',
-      'Sentence Transformers',
-      'Hugging Face',
-      'Ollama',
-      'LLMs',
-      'TensorFlow',
-      'PyTorch',
-      'NLP',
-      'Conversational AI',
-    ],
+    name: 'AI',
+    category: 'focus',
+    x: '52%',
+    y: '45%',
+    related: ['Python', 'NLP', 'RAG'],
   },
   {
-    label: 'COMPUTER VISION',
-    number: '05',
-    skills: [
-      'MediaPipe',
-      'Hand Landmark Detection',
-      'Canvas',
-      'Webcam Interaction',
-    ],
+    name: 'Spring Boot',
+    category: 'backend',
+    x: '76%',
+    y: '48%',
+    related: ['Java', 'REST APIs'],
   },
   {
-    label: 'DATA / INFRASTRUCTURE',
-    number: '06',
-    skills: [
-      'PostgreSQL',
-      'MySQL',
-      'Pandas',
-      'NumPy',
-      'Docker',
-      'CI/CD',
-      'Netlify',
-    ],
+    name: 'TypeScript',
+    category: 'language',
+    x: '25%',
+    y: '64%',
+    related: ['React', 'Vite'],
   },
   {
-    label: 'TOOLS',
-    number: '07',
-    skills: [
-      'Git',
-      'Jira',
-      'Confluence',
-      'Selenium',
-      'Playwright',
-    ],
+    name: 'SQL',
+    category: 'data',
+    x: '54%',
+    y: '68%',
+    related: ['PostgreSQL', 'MySQL'],
+  },
+  {
+    name: 'FastAPI',
+    category: 'backend',
+    x: '76%',
+    y: '70%',
+    related: ['Python', 'REST APIs'],
+  },
+  {
+    name: 'Docker',
+    category: 'devops',
+    x: '38%',
+    y: '83%',
+    related: ['FastAPI', 'Deployment'],
   },
 ]
 
 function Stack() {
+  const [active, setActive] = useState<string | null>(
+    null,
+  )
+
+  const activeTechnology = technologies.find(
+    (technology) => technology.name === active,
+  )
+
   return (
     <section id="stack" className="section stack-section">
-      <div className="stack-grid-background" />
+      <div className="stack-decoration">
+        <span />
+        <span />
+        <span />
+      </div>
 
       <div className="section-container">
-        <div className="section-label">
-          <span className="section-number">04</span>
-          <span className="section-line" />
-          <span>Stack</span>
-          <i>how I build</i>
+        <div className="section-eyebrow">
+          WHAT I WORK WITH
         </div>
 
         <div className="stack-heading">
-          <div>
-            <span className="stack-kicker">THE TOOLBOX</span>
-
-            <h2>
-              How I
-              <br />
-              <i>build.</i>
-            </h2>
-          </div>
+          <h2>
+            A little bit
+            <br />
+            <i>of everything.</i>
+          </h2>
 
           <p>
-            A constantly changing collection of languages, systems,
-            frameworks and ideas I use to turn problems into things.
+            I like understanding how the pieces fit
+            together, not just learning the names.
           </p>
         </div>
 
-        <div className="stack-map">
-          <div className="stack-map-center">
-            <span>SRISHTI</span>
-            <strong>BUILD</strong>
-            <small>ENGINEERING · AI · EXPERIMENTATION</small>
+        <div className="stack-constellation">
+          <svg
+            className="stack-lines"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            <path d="M46 20 C48 32 50 36 52 45" />
+            <path d="M69 27 C65 36 58 40 52 45" />
+            <path d="M25 39 C35 40 43 42 52 45" />
+            <path d="M52 45 C60 46 69 48 76 48" />
+            <path d="M25 64 C30 55 32 47 25 39" />
+            <path d="M52 45 C53 55 54 62 54 68" />
+            <path d="M54 68 C61 70 69 70 76 70" />
+            <path d="M38 83 C43 77 49 72 54 68" />
+          </svg>
+
+          {technologies.map((technology) => {
+            const isActive = active === technology.name
+            const isRelated =
+              activeTechnology?.related.includes(
+                technology.name,
+              ) ?? false
+
+            return (
+              <motion.button
+                key={technology.name}
+                type="button"
+                className={`stack-node ${
+                  isActive ? 'stack-node-active' : ''
+                } ${
+                  isRelated ? 'stack-node-related' : ''
+                }`}
+                style={{
+                  left: technology.x,
+                  top: technology.y,
+                }}
+                whileHover={{ scale: 1.08 }}
+                onMouseEnter={() =>
+                  setActive(technology.name)
+                }
+                onMouseLeave={() => setActive(null)}
+                onFocus={() =>
+                  setActive(technology.name)
+                }
+                onBlur={() => setActive(null)}
+              >
+                <span className="stack-node-dot" />
+                {technology.name}
+              </motion.button>
+            )
+          })}
+
+          <div className="stack-centre">
+            <span>BUILD</span>
+            <strong>+</strong>
+            <span>EXPERIMENT</span>
           </div>
-
-          {skillGroups.map((group, groupIndex) => (
-            <motion.div
-              className={`skill-cluster skill-cluster-${groupIndex + 1}`}
-              key={group.label}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.7,
-                delay: groupIndex * 0.08,
-              }}
-            >
-              <div className="skill-cluster-heading">
-                <span>{group.number}</span>
-                <strong>{group.label}</strong>
-              </div>
-
-              <div className="skill-cloud">
-                {group.skills.map((skill, index) => (
-                  <span
-                    key={skill}
-                    style={{
-                      '--skill-delay': `${index * 80}ms`,
-                    } as React.CSSProperties}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-
-          <div className="stack-connection connection-one" />
-          <div className="stack-connection connection-two" />
-          <div className="stack-connection connection-three" />
-          <div className="stack-connection connection-four" />
-        </div>
-
-        <div className="stack-bottom">
-          <span>
-            {skillGroups.reduce(
-              (total, group) => total + group.skills.length,
-              0,
-            )}{' '}
-            SKILLS / TOOLS
-          </span>
-
-          <span>LEARNING NEVER STAYS STATIC</span>
         </div>
       </div>
     </section>

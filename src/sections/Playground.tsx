@@ -1,190 +1,189 @@
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
 function Playground() {
-  return (
-    <section id="playground" className="section playground-section">
-      <div className="playground-atmosphere" />
+  const gardenRef = useRef<HTMLDivElement>(null)
 
+  const [flowers, setFlowers] = useState<
+    { x: number; y: number; id: number }[]
+  >([])
+
+  const [jarvisAwake, setJarvisAwake] =
+    useState(false)
+
+  useEffect(() => {
+    const handleMove = (event: MouseEvent) => {
+      if (!gardenRef.current) return
+
+      const rect = gardenRef.current.getBoundingClientRect()
+
+      if (
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom
+      ) {
+        return
+      }
+
+      const x =
+        ((event.clientX - rect.left) / rect.width) * 100
+
+      const y =
+        ((event.clientY - rect.top) / rect.height) * 100
+
+      setFlowers((current) => [
+        ...current.slice(-10),
+        {
+          x,
+          y,
+          id: Date.now() + Math.random(),
+        },
+      ])
+    }
+
+    window.addEventListener('mousemove', handleMove)
+
+    return () =>
+      window.removeEventListener(
+        'mousemove',
+        handleMove,
+      )
+  }, [])
+
+  return (
+    <section
+      id="playground"
+      className="section playground-section"
+    >
       <div className="section-container">
-        <div className="section-label">
-          <span className="section-number">05</span>
-          <span className="section-line" />
-          <span>Playground</span>
-          <i>where curiosity ends</i>
+        <div className="section-eyebrow">
+          THE PLAYGROUND
         </div>
 
-        <motion.div
-          className="playground-intro"
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9 }}
-        >
-          <div>
-            <span>NOT EVERYTHING NEEDS A REASON.</span>
-
-            <h2>
-              Where curiosity
-              <br />
-              <i>gets weird.</i>
-            </h2>
-          </div>
+        <div className="playground-heading">
+          <h2>
+            Just because
+            <br />
+            <i>I could.</i>
+          </h2>
 
           <p>
-            Small experiments, personal projects and ideas that
-            started with “what if?”
+            Small experiments built because sometimes
+            the best reason to build something is simply
+            wanting to see what happens.
           </p>
-        </motion.div>
-
-        <div className="playground-experiments">
-          <motion.article
-            className="experiment experiment-bloom"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="experiment-visual">
-              <div className="bloom-orbit bloom-orbit-one" />
-              <div className="bloom-orbit bloom-orbit-two" />
-
-              <div className="playground-flower">
-                <span />
-                <span />
-                <span />
-                <span />
-                <b />
-              </div>
-
-              <div className="bloom-cursor">
-                <span />
-              </div>
-            </div>
-
-            <div className="experiment-info">
-              <div>
-                <span>01 · COMPUTER VISION</span>
-                <h3>BloomTrace</h3>
-              </div>
-
-              <p>
-                Move your hand. Leave a trail. Watch flowers grow
-                from the movement of your fingertips.
-              </p>
-
-              <small>
-                React · TypeScript · MediaPipe · Canvas
-              </small>
-            </div>
-          </motion.article>
-
-          <motion.article
-            className="experiment experiment-jarvis"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: 0.12 }}
-          >
-            <div className="experiment-visual">
-              <div className="jarvis-rings">
-                <span />
-                <span />
-                <span />
-              </div>
-
-              <div className="jarvis-core">
-                <strong>J</strong>
-                <small>LISTENING</small>
-              </div>
-
-              <div className="jarvis-bars">
-                {Array.from({ length: 13 }).map((_, index) => (
-                  <span key={index} />
-                ))}
-              </div>
-
-              <div className="jarvis-status">
-                <span />
-                LOCAL · OLLAMA
-              </div>
-            </div>
-
-            <div className="experiment-info">
-              <div>
-                <span>02 · PERSONAL AI</span>
-                <h3>JARVIS</h3>
-              </div>
-
-              <p>
-                A local AI assistant exploring conversation, voice,
-                memory, scheduling and eventually computer control.
-              </p>
-
-              <small>
-                Python · Ollama · LLMs · Automation
-              </small>
-            </div>
-          </motion.article>
-
-          <motion.article
-            className="experiment experiment-garden"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: 0.24 }}
-          >
-            <div className="experiment-visual">
-              <div className="garden-sky-moon" />
-
-              <div className="garden-stars">
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
-
-              <div className="playground-garden-flower garden-one">
-                <i />
-                <i />
-                <i />
-                <i />
-                <b />
-              </div>
-
-              <div className="playground-garden-flower garden-two">
-                <i />
-                <i />
-                <i />
-                <i />
-                <b />
-              </div>
-
-              <div className="garden-horizon" />
-            </div>
-
-            <div className="experiment-info">
-              <div>
-                <span>03 · PERSONAL WEB</span>
-                <h3>Mum's Little Garden</h3>
-              </div>
-
-              <p>
-                A little digital garden built as something personal,
-                playful and deliberately different from a normal
-                website.
-              </p>
-
-              <small>
-                React · TypeScript · Tailwind · Vite · Netlify
-              </small>
-            </div>
-          </motion.article>
         </div>
 
-        <div className="playground-bottom">
-          <span>THREE SMALL WORLDS</span>
-          <span>BUILT FOR THE SAKE OF BUILDING</span>
+        <div className="playground-grid">
+          <div
+            ref={gardenRef}
+            className="playground-garden"
+          >
+            <div className="playground-garden-header">
+              <span>BloomTrace</span>
+              <small>move around</small>
+            </div>
+
+            <div className="playground-ground">
+              <div className="playground-sun" />
+
+              {flowers.map((flower) => (
+                <motion.span
+                  key={flower.id}
+                  className="cursor-flower"
+                  style={{
+                    left: `${flower.x}%`,
+                    top: `${flower.y}%`,
+                  }}
+                  initial={{
+                    scale: 0,
+                    opacity: 0,
+                  }}
+                  animate={{
+                    scale: 1,
+                    opacity: 1,
+                  }}
+                  transition={{
+                    duration: 0.45,
+                  }}
+                >
+                  <i />
+                  <i />
+                  <i />
+                  <i />
+                  <b />
+                </motion.span>
+              ))}
+
+              <div className="playground-hill" />
+              <div className="playground-hill playground-hill-two" />
+
+              <div className="playground-flower-stem">
+                <span />
+                <b />
+              </div>
+            </div>
+          </div>
+
+          <div className="playground-jarvis">
+            <div className="playground-jarvis-header">
+              <span>JARVIS</span>
+              <small>local intelligence</small>
+            </div>
+
+            <div className="jarvis-playground-core">
+              <motion.div
+                className="jarvis-playground-orbit"
+                animate={{
+                  rotate: jarvisAwake ? 360 : 0,
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: jarvisAwake
+                    ? Infinity
+                    : 0,
+                  ease: 'linear',
+                }}
+              />
+
+              <motion.button
+                type="button"
+                className={`jarvis-playground-button ${
+                  jarvisAwake
+                    ? 'jarvis-awake'
+                    : ''
+                }`}
+                onClick={() =>
+                  setJarvisAwake(!jarvisAwake)
+                }
+                whileTap={{ scale: 0.92 }}
+              >
+                <span />
+              </motion.button>
+
+              <span className="jarvis-playground-status">
+                {jarvisAwake
+                  ? 'AWAKE'
+                  : 'WAKE ME'}
+              </span>
+            </div>
+
+            <div className="jarvis-playground-bars">
+              {[1, 2, 3, 4, 5, 6, 7].map(
+                (bar) => (
+                  <span
+                    key={bar}
+                    style={{
+                      animationDelay: `${
+                        bar * 0.08
+                      }s`,
+                    }}
+                  />
+                ),
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>

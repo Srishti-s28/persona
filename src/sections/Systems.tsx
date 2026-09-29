@@ -2,111 +2,110 @@ import { motion } from 'framer-motion'
 
 const experiences = [
   {
-    number: '01',
-    period: 'JUN 2023 — JUN 2024',
     company: 'AWIN',
     role: 'Technical Solutions Engineer',
-    type: 'PLACEMENT YEAR',
+    period: 'June 2023 — June 2024',
+    type: 'Placement Year',
     description:
-      'Worked across APIs, tracking systems and third-party integrations for enterprise clients in a fast-moving technical environment.',
+      'Worked at the intersection of software, APIs and client problems, investigating technical issues across a large digital advertising ecosystem.',
     details: [
-      'Supported 20+ enterprise clients',
-      'Investigated REST API, tracking and conversion issues',
-      'Built Python, JavaScript and SQL automations',
-      'Worked across Shopify, Salesforce, WooCommerce and GTM',
+      '20+ enterprise clients',
+      'REST APIs & third-party integrations',
+      'Python, JavaScript & SQL automation',
+      'Validation and QA automation',
     ],
     metric: '30%',
     metricLabel: 'faster ticket resolution',
-    tech: 'Python · JavaScript · SQL · REST APIs',
+    secondaryMetric: '40%',
+    secondaryLabel: 'less manual data processing',
+    technologies: [
+      'Python',
+      'JavaScript',
+      'SQL',
+      'REST APIs',
+    ],
   },
   {
-    number: '02',
-    period: 'JUL 2025 — DEC 2025',
     company: 'ADVANCE AGILITY',
     role: 'Junior Software Engineer',
-    type: 'SOFTWARE ENGINEERING',
+    period: 'July 2025 — Present',
+    type: 'Part-time',
     description:
-      'Built software for different client projects, working across application development, internal tools and reporting systems.',
+      'Developing full stack applications for client projects across backend services, frontend features, APIs and relational databases.',
     details: [
-      'Developed Java-based internal applications and tools',
-      'Worked across React, JavaScript and SQL',
-      'Contributed to client-facing software projects',
-      'Worked with Git, GitLab, Jira and Confluence',
+      'Java & Spring Boot',
+      'React & Node.js',
+      'Python & SQL',
+      'OOP, SOLID & Agile Scrum',
     ],
-    metric: '02',
-    metricLabel: 'client projects explored',
-    tech: 'Java · React · JavaScript · SQL',
+    metric: 'FULL',
+    metricLabel: 'stack development',
+    secondaryMetric: 'API',
+    secondaryLabel: 'backend development',
+    technologies: [
+      'Java',
+      'Spring Boot',
+      'React',
+      'Node.js',
+    ],
   },
   {
-    number: '03',
-    period: '2026 — NOW',
-    company: 'SAINSBURY’S',
-    role: 'CURRENT CHAPTER',
-    type: 'CURRENT',
+    company: "SAINSBURY'S",
+    role: 'Customer Service Assistant',
+    period: 'September 2025 — Present',
+    type: 'Part-time',
     description:
-      'Currently building experience in a large-scale technology and customer environment while continuing to develop software projects independently.',
+      'Working in a high-volume customer environment while balancing competing priorities and maintaining clear communication, accuracy and teamwork.',
     details: [
-      'Current professional chapter',
-      'Continuing to build software outside work',
-      'Exploring AI, systems and developer tooling',
-      'Growing toward software engineering roles',
+      'Customer service',
+      'Communication',
+      'Teamwork',
+      'Accuracy & attention to detail',
     ],
     metric: 'NOW',
-    metricLabel: 'still building',
-    tech: 'Engineering · Systems · AI · Curiosity',
+    metricLabel: 'current chapter',
+    secondaryMetric: 'TEAM',
+    secondaryLabel: 'collaboration',
+    technologies: [
+      'Communication',
+      'Teamwork',
+      'Accuracy',
+    ],
   },
 ]
 
 function Systems() {
   return (
     <section
-      className="section systems-section"
       id="systems"
+      className="section systems-section"
     >
-      <div className="systems-bg-word">
-        EXPERIENCE
-      </div>
-
       <div className="section-container">
-        <div className="section-label">
-          <span className="section-number">02</span>
-          <span className="section-line" />
-          <span>Systems</span>
-          <i>how I got here</i>
+        <div className="section-eyebrow">
+          WHERE I'VE WORKED
         </div>
 
-        <motion.div
-          className="systems-intro"
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="systems-kicker">
-            <span />
-            EXPERIENCE / 03
-          </div>
-
+        <div className="systems-heading">
           <h2>
-            A few places
+            Places that
             <br />
-            <i>along the way.</i>
+            helped me <i>grow.</i>
           </h2>
 
           <p>
-            Different environments, different problems, same obsession:
-            figuring out how things work and making them better.
+            Different environments, different problems,
+            and a lot of learning along the way.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="experience-system">
+        <div className="experience-list">
           {experiences.map((experience, index) => (
             <motion.article
-              className={`experience-card experience-card-${index + 1}`}
               key={experience.company}
+              className="experience-item"
               initial={{
                 opacity: 0,
-                y: 45,
+                y: 35,
               }}
               whileInView={{
                 opacity: 1,
@@ -117,35 +116,27 @@ function Systems() {
                 amount: 0.2,
               }}
               transition={{
-                duration: 0.8,
-                delay: index * 0.12,
+                duration: 0.7,
+                delay: index * 0.1,
               }}
             >
-              <div className="experience-card-top">
-                <span className="experience-index">
-                  {experience.number}
-                </span>
-
-                <span className="experience-period">
-                  {experience.period}
-                </span>
-
-                <span className="experience-type">
-                  {experience.type}
-                </span>
+              <div className="experience-growing-line">
+                <span />
               </div>
 
-              <div className="experience-card-main">
-                <div className="experience-company-block">
-                  <span className="experience-role">
-                    {experience.role}
-                  </span>
-
+              <div className="experience-main">
+                <div className="experience-company">
+                  <span>{experience.type}</span>
                   <h3>{experience.company}</h3>
+                  <p>{experience.period}</p>
                 </div>
 
-                <div className="experience-description">
-                  <p>{experience.description}</p>
+                <div className="experience-content">
+                  <h4>{experience.role}</h4>
+
+                  <p className="experience-description">
+                    {experience.description}
+                  </p>
 
                   <div className="experience-details">
                     {experience.details.map((detail) => (
@@ -155,39 +146,41 @@ function Systems() {
                       </span>
                     ))}
                   </div>
-                </div>
-              </div>
 
-              <div className="experience-card-bottom">
-                <div className="experience-tech">
-                  <span>WORKED WITH</span>
-                  <strong>{experience.tech}</strong>
+                  <div className="experience-tech">
+                    {experience.technologies.map(
+                      (technology) => (
+                        <span key={technology}>
+                          {technology}
+                        </span>
+                      ),
+                    )}
+                  </div>
                 </div>
 
-                <div className="experience-metric">
-                  <strong>{experience.metric}</strong>
-                  <span>{experience.metricLabel}</span>
+                <div className="experience-metrics">
+                  <div>
+                    <strong>
+                      {experience.metric}
+                    </strong>
+                    <span>
+                      {experience.metricLabel}
+                    </span>
+                  </div>
+
+                  <div>
+                    <strong>
+                      {experience.secondaryMetric}
+                    </strong>
+                    <span>
+                      {experience.secondaryLabel}
+                    </span>
+                  </div>
                 </div>
               </div>
             </motion.article>
           ))}
         </div>
-
-        <motion.div
-          className="systems-footer"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <span>
-            <i />
-            EACH PLACE CHANGED THE SYSTEM
-          </span>
-
-          <span>
-            NEXT: THINGS I BUILT ↓
-          </span>
-        </motion.div>
       </div>
     </section>
   )
